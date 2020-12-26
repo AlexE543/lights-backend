@@ -110,6 +110,9 @@ class LightStrand:
             self.set_pixel(middle-i, color, show=False)
             self.set_pixel(middle+i, color, show=False)
             self.pixels.show()
+        self.set_pixel(0, color, show=False)
+        self.set_pixel(-1, color, show=False)
+        self.pixels.show()
 
     def shoot_left(self, color):
         prev = 0
