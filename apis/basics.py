@@ -1,21 +1,18 @@
-from flask import Flask, request
-from flask_restx import Api, Resource
-from light_strand import LightStrand
+from flask import request
+from flask_restx import Resource, Namespace
+from apis import light_strand
 import time
-import board
-import neopixel
 
-app = Flask(__name__)
-api = Api(app)
+basics_ns = Namespace("basics", description="basic led control")
 
 
-@api.route('/hello')
+@basics_ns.route('/hello')
 class Hello(Resource):
     def get(self):
         return "Hello!"
 
 
-@api.route('/clear')
+@basics_ns.route('/clear')
 class Clear(Resource):
     def get(self):
         start = time.time()
@@ -24,8 +21,8 @@ class Clear(Resource):
         return f"This command took {end-start} seconds"
 
 
-@api.route('/fill')
-@api.doc(params={
+@basics_ns.route('/fill')
+@basics_ns.doc(params={
     'r': "red color out of 255",
     'g': "green color out of 255",
     'b': "blue color out of 255",
@@ -39,8 +36,8 @@ class Fill(Resource):
         return f"Filling with ({r}, {g}, {b}) took {end-start} seconds"
 
 
-@api.route('/fill_range')
-@api.doc(params={
+@basics_ns.route('/fill_range')
+@basics_ns.doc(params={
     'r': "red color out of 255",
     'g': "green color out of 255",
     'b': "blue color out of 255",
@@ -56,8 +53,8 @@ class FillRange(Resource):
         end = time.time()
         return f"Filling the range took {end-start} seconds"
 
-@api.route('/set_pixel')
-@api.doc(params={
+@basics_ns.route('/set_pixel')
+@basics_ns.doc(params={
     'r': "red color out of 255",
     'g': "green color out of 255",
     'b': "blue color out of 255",
@@ -73,8 +70,8 @@ class SetPixel(Resource):
         return f"Setting the pixel took {end-start} seconds"
 
 
-@api.route('/get_pixel')
-@api.doc(params={
+@basics_ns.route('/get_pixel')
+@basics_ns.doc(params={
     'index': "start index",
 })
 class SetPixel(Resource):
@@ -85,7 +82,3 @@ class SetPixel(Resource):
         end = time.time()
         return f"The color of pixel {idx} is {color}. Getting the pixel took {end-start} seconds"
 
-
-if __name__ == "__main__":
-    light_strand = LightStrand(144, .2)
-    app.run()
