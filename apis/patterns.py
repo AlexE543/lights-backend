@@ -19,8 +19,8 @@ class Hello(Resource):
 })
 class Hello(Resource):
     def post(self):
-        color_one = request.form.get('color_one')
-        color_two = request.form.get('color_two')
+        color_one = request.data.get('color_one')
+        color_two = request.data.get('color_two')
         print(color_one)
         print(type(color_one))
         return "Hello!"
