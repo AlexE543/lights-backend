@@ -18,17 +18,34 @@ class Hello(Resource):
     'color_one': 'color one',
     'color_two': 'color two'
 })
-class Hello(Resource):
+class SetAlternating(Resource):
     def post(self):
+        start = time.time()
         data = json.loads(request.data)
-        color_one = data.get('color_one')
-        color_two = data.get('color_two')
-        print(color_one)
-        print(type(color_one))
-        return "Hello!"
+        color_one = tuple(data.get('color_one'))
+        color_two = tuple(data.get('color_two'))
+        light_strand.set_alternating(color_one, color_two)
+        end = time.time()
+        return f"Setting alternating colors took {end-start} seconds"
 
 
 @patterns_ns.route('/start_alternating')
-class Hello(Resource):
-    def get(self):
-        return "Hello!"
+class StartAlternating(Resource):
+    def post(self):
+        start = time.time()
+        data = json.loads(request.data)
+        color_one = tuple(data.get('color_one'))
+        color_two = tuple(data.get('color_two'))
+        light_strand.start_alternating(color_one, color_two)
+        end = time.time()
+        return f"Starting to alternate colors took {end - start} seconds"
+
+
+@patterns_ns.route('/stop_playing')
+class StopPlaying(Resource):
+    def post(self):
+        start = time.time()
+        data = json.loads(request.data)
+        light_strand.stop_playing()
+        end = time.time()
+        return f"Stopping the animation took {end - start} seconds"
