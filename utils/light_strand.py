@@ -137,7 +137,7 @@ class LightStrand:
             prev = i
             self.pixels.show()
             time.sleep(.03)
-        self.fill_range(prev-2, prev, prev_color, show=True)
+        self.fill_range(prev-3, prev, prev_color, show=True)
 
     def stop_playing(self):
         self.playing = False
