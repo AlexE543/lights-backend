@@ -36,7 +36,7 @@ class StartAlternating(Resource):
         data = json.loads(request.data)
         color_one = tuple(data.get('color_one'))
         color_two = tuple(data.get('color_two'))
-        light_strand.start_alternating(color_one, color_two, animate=True)
+        light_strand.start_alternating(color_one, color_two)
         end = time.time()
         return f"Starting to alternate colors took {end - start} seconds"
 
@@ -67,7 +67,7 @@ class StartTriAlternating(Resource):
         color_one = tuple(data.get('color_one'))
         color_two = tuple(data.get('color_two'))
         color_three = tuple(data.get('color_three'))
-        light_strand.start_alternating(color_one, color_two, color_three, animate=True)
+        light_strand.start_alternating(color_one, color_two, color_three)
         end = time.time()
         return f"Starting to tri-alternate colors took {end - start} seconds"
 

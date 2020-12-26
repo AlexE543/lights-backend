@@ -72,16 +72,16 @@ class LightStrand:
         self.playing = True
         self.current_animation = 0
         while self.current_animation == 0 and self.playing:
-            self.set_alternating(color_one, color_two)
+            self.set_alternating(color_one, color_two, animate=True)
             color_one, color_two = color_two, color_one
             self.pixels.show()
             time.sleep(1)
 
-    def start_cycling(self, color_one, color_two, color_three):
+    def start_tri_alternating(self, color_one, color_two, color_three):
         self.playing = True
         self.current_animation = 1
         while self.current_animation == 1 and self.playing:
-            self.set_tri_alternating(color_one, color_two, color_three)
+            self.set_tri_alternating(color_one, color_two, color_three, animate=True)
             color_one, color_two, color_three = color_two, color_three, color_one
             self.pixels.show()
             time.sleep(1)
