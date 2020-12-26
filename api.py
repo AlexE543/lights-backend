@@ -32,7 +32,7 @@ class Clear(Resource):
 class Fill(Resource):
     def post(self):
         start = time.time()
-        r, g, b = request.args.get('r'), request.args.get('g'), request.args.get('b')
+        r, g, b = int(request.args.get('r')), int(request.args.get('g')), int(request.args.get('b'))
         light_strand.fill((r, g, b))
         end = time.time()
         return f"Filling with ({r}, {g}, {b}) took {end-start} seconds"
