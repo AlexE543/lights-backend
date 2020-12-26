@@ -123,7 +123,6 @@ class LightStrand:
             self.set_pixel(i, color, show=False)
             prev = i
             self.pixels.show()
-            time.sleep(.1)
 
     def shoot_right(self, color):
         prev_color = self.get_pixel(-1)
@@ -134,7 +133,6 @@ class LightStrand:
             self.set_pixel(i, color, show=False)
             prev = i
             self.pixels.show()
-            time.sleep(.1)
 
     def stop_playing(self):
         self.playing = False
