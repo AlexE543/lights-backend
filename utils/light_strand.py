@@ -21,11 +21,12 @@ class LightStrand:
     def get_pixel(self, pixel_index):
         return self.pixels[pixel_index]
 
-    def set_pixel(self, pixel_index, color):
+    def set_pixel(self, pixel_index, color, show=True):
         self.playing = False
         if pixel_index < self.num_pixels:
             self.pixels[pixel_index] = color
-            self.pixels.show()
+            if show:
+                self.pixels.show()
         else:
             raise IndexError(f"Pixel index out of bounds. {pixel_index} is not less than {self.num_pixels}")
 
@@ -85,6 +86,46 @@ class LightStrand:
             color_one, color_two, color_three = color_two, color_three, color_one
             self.pixels.show()
             time.sleep(1)
+
+    def flash_fade(self, color):
+        self.playing = False
+        for i in range(5):
+            self.fill(color)
+            color = (int(x*.75) for x in color)
+
+    def slide_left(self, color):
+        self.playing = False
+        for i in range(0, self.num_pixels, 1):
+            self.set_pixel(i, color)
+
+    def slide_right(self, color):
+        self.playing = False
+        for i in range(self.num_pixels, -1, 1):
+            self.set_pixel(i, color)
+
+    def slide_middle(self, color):
+        self.playing = False
+        middle = self.num_pixels//2
+        for i in range(0, middle):
+            self.set_pixel(middle-i, color, show=False)
+            self.set_pixel(middle+i, color, show=False)
+            self.pixels.show()
+
+    def shoot_left(self, color):
+        prev = 0
+        for i in range(0, self.num_pixels, 3):
+            self.set_pixel(prev, (0, 0, 0), show=False)
+            self.set_pixel(i, color, show=False)
+            prev = i
+            self.pixels.show()
+
+    def shoot_right(self, color):
+        prev = -1
+        for i in range(self.num_pixels, -1, 3):
+            self.set_pixel(prev, (0, 0, 0), show=False)
+            self.set_pixel(i, color, show=False)
+            prev = i
+            self.pixels.show()
 
     def stop_playing(self):
         self.playing = False
