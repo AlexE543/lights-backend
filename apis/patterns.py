@@ -38,7 +38,7 @@ class StartAlternating(Resource):
         color_two = tuple(data.get('color_two'))
         light_strand.start_alternating(color_one, color_two)
         end = time.time()
-        return f"Starting to alternate colors took {end - start} seconds"
+        return f"Alternated for {end - start} seconds"
 
 
 @patterns_ns.route('/set__tri_alternating')
@@ -69,7 +69,7 @@ class StartTriAlternating(Resource):
         color_three = tuple(data.get('color_three'))
         light_strand.start_tri_alternating(color_one, color_two, color_three)
         end = time.time()
-        return f"Starting to tri-alternate colors took {end - start} seconds"
+        return f"Tri-Alternated for {end - start} seconds"
 
 
 @patterns_ns.route('/stop_playing')
