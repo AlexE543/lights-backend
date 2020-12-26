@@ -67,7 +67,7 @@ class StartTriAlternating(Resource):
         color_one = tuple(data.get('color_one'))
         color_two = tuple(data.get('color_two'))
         color_three = tuple(data.get('color_three'))
-        light_strand.start_alternating(color_one, color_two, color_three)
+        light_strand.start_tri_alternating(color_one, color_two, color_three)
         end = time.time()
         return f"Starting to tri-alternate colors took {end - start} seconds"
 
