@@ -32,7 +32,7 @@ class LightStrand:
 
     def fill_range(self, start_index, end_index, color, show=True):
         self.playing = False
-        if start_index < end_index and (0 < start_index < self.num_pixels and 0 < end_index < self.num_pixels):
+        if start_index < end_index and (0 <= start_index < self.num_pixels and 0 <= end_index < self.num_pixels):
             for i in range(start_index, end_index):
                 self.pixels[i] = color
             if show:
