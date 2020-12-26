@@ -38,6 +38,7 @@ class LightStrand:
 
     def clear(self):
         self.pixels.fill((0, 0, 0))
+        self.playing = False
         self.pixels.show()
 
     def fill(self, color):
