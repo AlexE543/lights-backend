@@ -115,20 +115,26 @@ class LightStrand:
         self.pixels.show()
 
     def shoot_left(self, color):
+        prev_color = self.get_pixel(0)
         prev = 0
         for i in range(0, self.num_pixels, 3):
-            self.set_pixel(prev, (0, 0, 0), show=False)
+            self.set_pixel(prev, prev_color, show=False)
             self.set_pixel(i, color, show=False)
             prev = i
+            prev_color = self.get_pixel(i)
             self.pixels.show()
+            time.sleep(.3)
 
     def shoot_right(self, color):
+        prev_color = self.get_pixel(-1)
         prev = -1
         for i in range(self.num_pixels-1, -1, -3):
-            self.set_pixel(prev, (0, 0, 0), show=False)
+            self.set_pixel(prev, prev_color, show=False)
             self.set_pixel(i, color, show=False)
             prev = i
+            prev_color = self.get_pixel(i)
             self.pixels.show()
+            time.sleep(.3)
 
     def stop_playing(self):
         self.playing = False
