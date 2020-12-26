@@ -47,19 +47,19 @@ class LightStrand:
     def set_alternating(self, color_one, color_two):
         for i in range(self.num_pixels):
             if i % 2 == 1:
-                self.set_pixel(i, color_one)
+                self.pixels[i] = color_one
             else:
-                self.set_pixel(i, color_two)
+                self.pixels[i] = color_two
         self.pixels.show()
 
     def set_tri_alternating(self, color_one, color_two, color_three):
         for i in range(self.num_pixels):
             if i % 3 == 2:
-                self.set_pixel(i, color_one)
+                self.pixels[i] = color_one
             elif i % 3 == 1:
-                self.set_pixel(i, color_two)
+                self.pixels[i] = color_two
             else:
-                self.set_pixel(i, color_three)
+                self.pixels[i] = color_three
         self.pixels.show()
 
     def start_alternating(self, color_one, color_two):
