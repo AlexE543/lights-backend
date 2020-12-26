@@ -30,3 +30,6 @@ class LightStrand:
 
     def clear(self):
         self.pixels.fill((0, 0, 0))
+
+    def fill(self, color):
+        self.pixels.fill(color)
