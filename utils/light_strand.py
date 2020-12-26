@@ -32,13 +32,13 @@ class LightStrand:
 
     def fill_range(self, start_index, end_index, color, show=True):
         self.playing = False
-        if start_index < end_index and (0 <= start_index < self.num_pixels and 0 <= end_index < self.num_pixels):
+        if start_index < end_index:
             for i in range(start_index, end_index):
                 self.pixels[i] = color
             if show:
                 self.pixels.show()
         else:
-            raise IndexError(f"Indices out of bounds or in incorrect order. Start: {start_index}. End: {end_index}")
+            raise IndexError(f"Indices in incorrect order. Start: {start_index}. End: {end_index}")
 
     def clear(self):
         self.playing = False
