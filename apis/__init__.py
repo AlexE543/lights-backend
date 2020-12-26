@@ -4,10 +4,11 @@ from apis.light_strand import LightStrand
 from .basics import basics_ns
 from .patterns import patterns_ns
 
-light_strand = LightStrand(144, brightness=0.2)
-
 
 def create_app():
+    global light_strand
+    light_strand = LightStrand(144, brightness=0.2)
+
     app = Flask(__name__)
 
     api = Api(
