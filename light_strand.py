@@ -35,3 +35,4 @@ class LightStrand:
 
     def fill(self, color):
         self.pixels.fill(color)
+        self.pixels.show()
