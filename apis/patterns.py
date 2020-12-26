@@ -23,8 +23,6 @@ class Hello(Resource):
         color_two = request.form.get('color_two')
         print(color_one)
         print(type(color_one))
-        print(tuple(color_one))
-        print(type(tuple(color_one)[0]))
         return "Hello!"
 
 
