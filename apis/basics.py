@@ -1,6 +1,6 @@
 from flask import request
 from flask_restx import Resource, Namespace
-from apis.shared import light_strand
+from utils.shared import light_strand
 import time
 
 basics_ns = Namespace("basics", description="basic led control")

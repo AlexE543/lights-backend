@@ -1,6 +1,7 @@
 import board
 import neopixel
 import time
+from utils.shared import animator
 
 GPIO_PIN = board.D18
 
@@ -15,13 +16,14 @@ class LightStrand:
     def __init__(self, num_pixels, brightness, auto_write=False):
         self.num_pixels = num_pixels
         self.pixels = neopixel.NeoPixel(GPIO_PIN, num_pixels, brightness=brightness, auto_write=auto_write)
-        self.playing = False  # Used to start and stop animations
-        self.current_animation = None  # Used to make sure only one animation goes at once
+        self.playing = False
+        self.current_animation = None
 
     def get_pixel(self, pixel_index):
         return self.pixels[pixel_index]
 
     def set_pixel(self, pixel_index, color):
+        self.playing = False
         if pixel_index < self.num_pixels:
             self.pixels[pixel_index] = color
             self.pixels.show()
@@ -29,6 +31,7 @@ class LightStrand:
             raise IndexError(f"Pixel index out of bounds. {pixel_index} is not less than {self.num_pixels}")
 
     def fill_range(self, start_index, end_index, color):
+        self.playing = False
         if start_index < end_index and (0 < start_index < self.num_pixels and 0 < end_index < self.num_pixels):
             for i in range(start_index, end_index):
                 self.pixels[i] = color
@@ -37,15 +40,17 @@ class LightStrand:
             raise IndexError(f"Indices out of bounds or in incorrect order. Start: {start_index}. End: {end_index}")
 
     def clear(self):
-        self.pixels.fill((0, 0, 0))
         self.playing = False
+        self.pixels.fill((0, 0, 0))
         self.pixels.show()
 
     def fill(self, color):
+        self.playing = False
         self.pixels.fill(color)
         self.pixels.show()
 
-    def set_alternating(self, color_one, color_two):
+    def set_alternating(self, color_one, color_two, animate=False):
+        self.playing = animate
         for i in range(self.num_pixels):
             if i % 2 == 1:
                 self.pixels[i] = color_one
@@ -53,7 +58,8 @@ class LightStrand:
                 self.pixels[i] = color_two
         self.pixels.show()
 
-    def set_tri_alternating(self, color_one, color_two, color_three):
+    def set_tri_alternating(self, color_one, color_two, color_three, animate=False):
+        self.playing = animate
         for i in range(self.num_pixels):
             if i % 3 == 2:
                 self.pixels[i] = color_one
@@ -83,6 +89,3 @@ class LightStrand:
 
     def stop_playing(self):
         self.playing = False
-
-
-

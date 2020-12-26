@@ -1,6 +1,6 @@
 from flask import request
 from flask_restx import Resource, Namespace
-from apis.shared import light_strand
+from utils.shared import light_strand
 import time
 import json
 
@@ -36,9 +36,40 @@ class StartAlternating(Resource):
         data = json.loads(request.data)
         color_one = tuple(data.get('color_one'))
         color_two = tuple(data.get('color_two'))
-        light_strand.start_alternating(color_one, color_two)
+        light_strand.start_alternating(color_one, color_two, animate=True)
         end = time.time()
         return f"Starting to alternate colors took {end - start} seconds"
+
+
+@patterns_ns.route('/set__tri_alternating')
+@patterns_ns.doc(params={
+    'color_one': 'color one',
+    'color_two': 'color two',
+    'color_three': 'color_three'
+})
+class SetTriAlternating(Resource):
+    def post(self):
+        start = time.time()
+        data = json.loads(request.data)
+        color_one = tuple(data.get('color_one'))
+        color_two = tuple(data.get('color_two'))
+        color_three = tuple(data.get('color_three'))
+        light_strand.set_alternating(color_one, color_two, color_three)
+        end = time.time()
+        return f"Setting tri-alternating colors took {end-start} seconds"
+
+
+@patterns_ns.route('/start_tri_alternating')
+class StartTriAlternating(Resource):
+    def post(self):
+        start = time.time()
+        data = json.loads(request.data)
+        color_one = tuple(data.get('color_one'))
+        color_two = tuple(data.get('color_two'))
+        color_three = tuple(data.get('color_three'))
+        light_strand.start_alternating(color_one, color_two, color_three, animate=True)
+        end = time.time()
+        return f"Starting to tri-alternate colors took {end - start} seconds"
 
 
 @patterns_ns.route('/stop_playing')

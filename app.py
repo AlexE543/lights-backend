@@ -1,5 +1,5 @@
 from apis import create_app
-from apis.light_strand import LightStrand
+from utils.light_strand import LightStrand
 
 app, api = create_app()
 
