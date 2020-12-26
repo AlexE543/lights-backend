@@ -30,12 +30,13 @@ class LightStrand:
         else:
             raise IndexError(f"Pixel index out of bounds. {pixel_index} is not less than {self.num_pixels}")
 
-    def fill_range(self, start_index, end_index, color):
+    def fill_range(self, start_index, end_index, color, show=True):
         self.playing = False
         if start_index < end_index and (0 < start_index < self.num_pixels and 0 < end_index < self.num_pixels):
             for i in range(start_index, end_index):
                 self.pixels[i] = color
-            self.pixels.show()
+            if show:
+                self.pixels.show()
         else:
             raise IndexError(f"Indices out of bounds or in incorrect order. Start: {start_index}. End: {end_index}")
 
@@ -117,10 +118,10 @@ class LightStrand:
     def shoot_left(self, color):
         prev_color = self.get_pixel(0)
         prev = 0
-        for i in range(0, self.num_pixels, 3):
-            self.set_pixel(prev, prev_color, show=False)
+        for i in range(0, self.num_pixels-3, 3):
+            self.fill_range(prev, prev + 3, prev_color, show=False)
             prev_color = self.get_pixel(i)
-            self.set_pixel(i, color, show=False)
+            self.fill_range(i, i + 3, color, show=False)
             prev = i
             self.pixels.show()
             time.sleep(.03)
@@ -128,14 +129,13 @@ class LightStrand:
     def shoot_right(self, color):
         prev_color = self.get_pixel(-1)
         prev = -1
-        for i in range(self.num_pixels-1, -1, -3):
-            self.set_pixel(prev, prev_color, show=False)
+        for i in range(self.num_pixels-1, 2, -3):
+            self.fill_range(prev-3, prev, prev_color, show=False)
             prev_color = self.get_pixel(i)
-            self.set_pixel(i, color, show=False)
+            self.fill_range(i-3, i, color, show=False)
             prev = i
             self.pixels.show()
             time.sleep(.03)
-
 
     def stop_playing(self):
         self.playing = False
