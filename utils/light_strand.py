@@ -1,7 +1,6 @@
 import board
 import neopixel
 import time
-from utils.shared import animator
 
 GPIO_PIN = board.D18
 

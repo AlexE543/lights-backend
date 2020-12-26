@@ -76,7 +76,6 @@ class StartTriAlternating(Resource):
 class StopPlaying(Resource):
     def post(self):
         start = time.time()
-        data = json.loads(request.data)
         light_strand.stop_playing()
         end = time.time()
         return f"Stopping the animation took {end - start} seconds"
