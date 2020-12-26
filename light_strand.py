@@ -9,8 +9,6 @@ class LightStrand:
     def __init__(self, num_pixels, brightness, auto_write=False):
         self.num_pixels = num_pixels
         self.pixels = neopixel.NeoPixel(GPIO_PIN, num_pixels, brightness=brightness, auto_write=auto_write)
-        print("Setting pixels to white to start")
-        self.pixels.fill((1, 1, 1))
 
     def get_pixel(self, pixel_index):
         return self.pixels[pixel_index]
@@ -32,6 +30,7 @@ class LightStrand:
 
     def clear(self):
         self.pixels.fill((0, 0, 0))
+        self.pixels.show()
 
     def fill(self, color):
         self.pixels.fill(color)
