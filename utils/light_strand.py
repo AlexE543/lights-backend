@@ -101,6 +101,7 @@ class LightStrand:
     def slide_right(self, color):
         self.playing = False
         for i in range(self.num_pixels, -1, -1):
+            print(i)
             self.set_pixel(i, color)
 
     def slide_middle(self, color):
