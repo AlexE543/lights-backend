@@ -2,6 +2,7 @@ from flask import request
 from flask_restx import Resource, Namespace
 from apis.shared import light_strand
 import time
+import json
 
 patterns_ns = Namespace("patterns", description="led patterns")
 
@@ -19,8 +20,9 @@ class Hello(Resource):
 })
 class Hello(Resource):
     def post(self):
-        color_one = request.data.get('color_one')
-        color_two = request.data.get('color_two')
+        data = json.loads(request.data)
+        color_one = data.get('color_one')
+        color_two = data.get('color_two')
         print(color_one)
         print(type(color_one))
         return "Hello!"
