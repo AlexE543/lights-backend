@@ -1,6 +1,6 @@
 from flask import request
 from flask_restx import Resource, Namespace
-from apis import light_strand
+from apis.shared import light_strand
 import time
 
 patterns_ns = Namespace("patterns", description="led patterns")
