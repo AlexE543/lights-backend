@@ -93,6 +93,7 @@ class LightStrand:
         for i in range(6):
             self.fill(color)
             color = tuple(int(x*.75) for x in color)
+            time.sleep(.05)
         self.fill((0, 0, 0))
 
     def slide_left(self, color):
