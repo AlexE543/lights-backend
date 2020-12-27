@@ -133,12 +133,14 @@ class LightStrand:
         prev_color = self.get_pixel(-1)
         prev = -1
         for i in range(self.num_pixels-1, 0, -3):
+            print(f"I: {i}, i-3: {i-3} prev: {prev}, prev-3: {prev-3}")
             self.fill_range(prev-3, prev, prev_color, show=False)
             prev_color = self.get_pixel(i)
             self.fill_range(i-3, i, color, show=False)
             prev = i
             self.pixels.show()
             time.sleep(.03)
+        print(f"I: {i}, i-3: {i - 3} prev: {prev}, prev-3: {prev - 3}")
         self.fill_range(prev-3, prev, prev_color, show=True)
 
     def stop_playing(self):
