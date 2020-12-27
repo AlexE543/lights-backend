@@ -41,7 +41,7 @@ class StartAlternating(Resource):
         return f"Alternated for {end - start} seconds"
 
 
-@patterns_ns.route('/set__tri_alternating')
+@patterns_ns.route('/set_tri_alternating')
 @patterns_ns.doc(params={
     'color_one': 'color one',
     'color_two': 'color two',
