@@ -47,7 +47,7 @@ class FillRange(Resource):
         start = time.time()
         data = json.loads(request.data)
         color = tuple(data.get('color'))
-        start_index, end_index = int(request.args.get('start')), int(request.args.get('end'))
+        start_index, end_index = int(data.get('start')), int(data.get('end'))
         light_strand.fill_range(start_index, end_index, color)
         end = time.time()
         return f"Filling the range took {end-start} seconds"
@@ -76,7 +76,8 @@ class SetPixel(Resource):
 class SetPixel(Resource):
     def get(self):
         start = time.time()
-        idx = int(request.args.get('index'))
+        data = json.loads(request.data)
+        idx = int(data.get('index'))
         color = light_strand.get_pixel(idx)
         end = time.time()
         return f"The color of pixel {idx} is {color}. Getting the pixel took {end-start} seconds"
