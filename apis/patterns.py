@@ -155,7 +155,8 @@ class ShootLeft(Resource):
         end = time.time()
         return f"Command took {end - start} seconds"
 
-
+import faulthandler
+faulthandler.enable()
 @patterns_ns.route('/shoot_right')
 @patterns_ns.doc(params={
     'color': 'color formatted as [r, g, b]'
