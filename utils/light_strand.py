@@ -97,19 +97,16 @@ class LightStrand:
         self.fill((0, 0, 0))
 
     def slide_left(self, color):
-        color = tuple(color)
         self.playing = False
         for i in range(0, self.num_pixels, 1):
             self.set_pixel(i, color)
 
     def slide_right(self, color):
-        color = tuple(color)
         self.playing = False
         for i in range(self.num_pixels-1, -1, -1):
             self.set_pixel(i, color)
 
     def slide_middle(self, color):
-        color = tuple(color)
         self.playing = False
         middle = self.num_pixels//2
         for i in range(0, middle):
@@ -121,7 +118,6 @@ class LightStrand:
         self.pixels.show()
 
     def shoot_left(self, color):
-        color = tuple(color)
         prev_color = self.get_pixel(0)
         prev = 0
         for i in range(0, self.num_pixels-1, 3):
@@ -134,7 +130,6 @@ class LightStrand:
         self.fill_range(prev, prev + 3, prev_color, show=True)
 
     def shoot_right(self, color):
-        color = tuple(color)
         prev_color = self.get_pixel(-1)
         prev = -1
         for i in range(self.num_pixels-1, 0, -3):
