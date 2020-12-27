@@ -120,7 +120,7 @@ class LightStrand:
     def shoot_left(self, color):
         prev_color = self.get_pixel(0)
         prev = 0
-        for i in range(0, self.num_pixels-1, 3):
+        for i in range(0, self.num_pixels - 2, 3):
             self.fill_range(prev, prev + 3, prev_color, show=False)
             prev_color = self.get_pixel(i)
             self.fill_range(i, i + 3, color, show=False)
@@ -131,16 +131,14 @@ class LightStrand:
 
     def shoot_right(self, color):
         prev_color = self.get_pixel(-1)
-        prev = self.num_pixels -1
+        prev = self.num_pixels - 1
         for i in range(self.num_pixels-1, 2, -3):
-            print(f"I: {i}, i-3: {i-3} prev: {prev}, prev-3: {prev-3}")
             self.fill_range(prev-3, prev, prev_color, show=False)
             prev_color = self.get_pixel(i)
             self.fill_range(i-3, i, color, show=False)
             prev = i
             self.pixels.show()
             time.sleep(.03)
-        print(f"I: {i}, i-3: {i - 3} prev: {prev}, prev-3: {prev - 3}")
         self.fill_range(prev-3, prev, prev_color, show=True)
 
     def stop_playing(self):
