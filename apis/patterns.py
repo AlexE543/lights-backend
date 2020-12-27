@@ -79,7 +79,7 @@ class StartTriAlternating(Resource):
 
 @patterns_ns.route('/stop_playing')
 class StopPlaying(Resource):
-    def post(self):
+    def get(self):
         start = time.time()
         light_strand.stop_playing()
         end = time.time()
