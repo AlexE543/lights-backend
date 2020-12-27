@@ -63,7 +63,7 @@ class SetPixel(Resource):
         start = time.time()
         data = json.loads(request.data)
         color = tuple(data.get('color'))
-        idx = int(request.args.get('index'))
+        idx = int(data.get('index'))
         light_strand.set_pixel(idx, color)
         end = time.time()
         return f"Setting the pixel took {end-start} seconds"
