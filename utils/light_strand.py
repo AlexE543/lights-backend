@@ -92,8 +92,8 @@ class LightStrand:
         self.playing = False
         for i in range(6):
             self.fill(color)
-            color = (int(x*.75) for x in color)
-        self.fill((0,0,0))
+            color = tuple(int(x*.75) for x in color)
+        self.fill((0, 0, 0))
 
     def slide_left(self, color):
         self.playing = False
