@@ -131,8 +131,8 @@ class LightStrand:
 
     def shoot_right(self, color):
         prev_color = self.get_pixel(-1)
-        prev = -1
-        for i in range(self.num_pixels-1, 0, -3):
+        prev = self.num_pixels -1
+        for i in range(self.num_pixels-1, 2, -3):
             print(f"I: {i}, i-3: {i-3} prev: {prev}, prev-3: {prev-3}")
             self.fill_range(prev-3, prev, prev_color, show=False)
             prev_color = self.get_pixel(i)
