@@ -148,7 +148,6 @@ class SlideMiddle(Resource):
 })
 class ShootLeft(Resource):
     def post(self):
-        print(request.data)
         start = time.time()
         data = json.loads(request.data)
         color = data.get("color")
