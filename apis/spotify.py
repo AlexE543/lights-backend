@@ -16,21 +16,11 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, client_id=os.getenv(
                                                 client_secret=os.getenv('SPOTIPY_CLIENT_SECRET')))
 
 
-@spotify_ns.route('/test')
-class Test(Resource):
-    def get(self):
-        start = time.time()
-        print(sp.current_playback())
-        print(sp.currently_playing())
-        end = time.time()
-        return f"This command took {end-start} seconds"
-
-
 @spotify_ns.route('/next_song')
 class NextSong(Resource):
     def get(self):
         start = time.time()
-        print(sp.next_track())
+        sp.next_track()
         end = time.time()
         return f"This command took {end-start} seconds"
 
@@ -39,7 +29,7 @@ class NextSong(Resource):
 class PreviousSong(Resource):
     def get(self):
         start = time.time()
-        print(sp.previous_track())
+        sp.previous_track()
         end = time.time()
         return f"This command took {end-start} seconds"
 
@@ -48,10 +38,16 @@ class PreviousSong(Resource):
 class PausePlay(Resource):
     def get(self):
         start = time.time()
-        print(sp.currently_playing().get('is_playing'))
         if sp.currently_playing().get('is_playing'):
-            print(sp.pause_playback())
+            sp.pause_playback()
         else:
-            print(sp.start_playback())
+            sp.start_playback()
         end = time.time()
         return f"This command took {end-start} seconds"
+
+
+@spotify_ns.route('/current_song')
+class CurrentSong(Resource):
+    def get(self):
+        data = sp.currently_playing()
+        return data
