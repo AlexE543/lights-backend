@@ -3,6 +3,8 @@ from flask_restx import Resource, Namespace
 from utils.shared import light_strand
 import time
 import json
+import faulthandler
+faulthandler.enable()
 
 patterns_ns = Namespace("patterns", description="led patterns")
 
@@ -155,8 +157,7 @@ class ShootLeft(Resource):
         end = time.time()
         return f"Command took {end - start} seconds"
 
-import faulthandler
-faulthandler.enable()
+
 @patterns_ns.route('/shoot_right')
 @patterns_ns.doc(params={
     'color': 'color formatted as [r, g, b]'

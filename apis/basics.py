@@ -17,6 +17,7 @@ class Hello(Resource):
 class Clear(Resource):
     def get(self):
         start = time.time()
+        print(light_strand.pixels)
         light_strand.clear()
         end = time.time()
         return f"This command took {end-start} seconds"
