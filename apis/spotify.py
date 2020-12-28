@@ -48,8 +48,8 @@ class PreviousSong(Resource):
 class PausePlay(Resource):
     def get(self):
         start = time.time()
-        print(sp.currently_playing())
-        if json.loads(sp.currently_playing()).get('is_playing'):
+        print(sp.currently_playing().get('is_playing'))
+        if sp.currently_playing().get('is_playing'):
             print(sp.pause_playback())
         else:
             print(sp.start_playback())
