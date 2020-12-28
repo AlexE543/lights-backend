@@ -3,7 +3,7 @@ import os
 from spotipy.oauth2 import SpotifyOAuth
 
 scope = "user-read-currently-playing user-top-read user-read-recently-played user-read-playback-state " \
-        "user-modify-playback-state streaming app-remote-control"
+        "user-modify-playback-state streaming app-remote-control user-library-read"
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, client_id=os.getenv('SPOTIPY_CLIENT_ID'),
                                                client_secret=os.getenv('SPOTIPY_CLIENT_SECRET')))
