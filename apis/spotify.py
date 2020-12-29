@@ -75,9 +75,9 @@ class PulseToBeat(Resource):
                 break
         while current_bar < len(bars) - 1:
             duration = bars[current_bar].get('duration')
-            time.sleep(duration)
             print(time.time() - start_time + progress_ms)
             print(bars[current_bar].get('start'))
+            time.sleep(duration)
             light_strand.flash_fade(color)
             current_bar += 1
 
