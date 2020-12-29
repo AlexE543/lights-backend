@@ -74,11 +74,11 @@ class PulseToBeat(Resource):
                 time.sleep(bar.get("start") - current_song_time)
                 break
         while current_bar < len(bars) - 1:
+            light_strand.flash_fade(color)
             duration = bars[current_bar].get('duration')
             one = time.time() - start_time + progress_ms
             two = bars[current_bar].get('start')
             print("Difference: ", two-one)
-            light_strand.flash_fade(color)
             current_bar += 1
             time.sleep(duration-.21)
 
