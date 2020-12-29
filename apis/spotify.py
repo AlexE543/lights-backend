@@ -63,7 +63,7 @@ class PulseToBeat(Resource):
         track_id = data.get('id')
         color = tuple(data.get('color'))
         analysis = sp.audio_analysis(track_id)
-        bars = analysis.get("bars")
+        bars = analysis.get("beats")
         current_bar = 0
         for i, bar in enumerate(bars):
             current_song_time = time.time() - start_time + progress_ms
