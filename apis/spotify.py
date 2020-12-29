@@ -56,10 +56,10 @@ class CurrentSong(Resource):
 @spotify_ns.route('/pulse_to_beat')
 class PulseToBeat(Resource):
     def post(self):
-        data = json.loads(sp.currently_playing())
+        data = sp.currently_playing()
         start_ms = int(round(time.time() * 1000))
         progress_ms = data.get("progress_ms")
-        data = json.loads(request.data)
+        data = request.data
         track_id = data.get('id')
         color = data.get('color')
         analysis = sp.audio_analysis(track_id)
