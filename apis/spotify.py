@@ -57,6 +57,7 @@ class CurrentSong(Resource):
 class PulseToBeat(Resource):
     def post(self):
         data = sp.currently_playing()
+        print(type(data))
         start_ms = int(round(time.time() * 1000))
         progress_ms = data.get("progress_ms")
         data = request.data
