@@ -58,7 +58,7 @@ class PulseToBeat(Resource):
     def post(self):
         data = sp.currently_playing()
         print(type(data))
-        start_ms = int(round(time.time() * 1000))
+        start_time = time.time()
         progress_ms = data.get("progress_ms")
         data = json.loads(request.data)
         track_id = data.get('id')
@@ -67,10 +67,10 @@ class PulseToBeat(Resource):
         bars = analysis.get("bars")
         current_bar = 0
         for i, bar in enumerate(bars):
-            current_song_time = int(round(time.time()*1000) - start_ms) + progress_ms
-            if current_song_time < int(round(bar.get("start")*1000)) + start_ms:
+            current_song_time = time.time() - start_time + round(progress_ms/1000)
+            if current_song_time < bar.get("start") + start_time:
                 current_bar = i
-                time.sleep(int(bar.get("start")) + start_ms - current_song_time)
+                time.sleep(bar.get("start") + start_time - current_song_time)
                 break
         while current_bar < len(bars) - 1:
             duration = bars[current_bar].get('duration')
