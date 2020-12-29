@@ -56,7 +56,24 @@ class CurrentSong(Resource):
 @spotify_ns.route('/pulse_to_beat')
 class PulseToBeat(Resource):
     def post(self):
+        data = json.loads(sp.currently_playing())
+        start_ms = int(round(time.time() * 1000))
+        progress_ms = data.get("progress_ms")
         data = json.loads(request.data)
         track_id = data.get('id')
+        color = data.get('color')
         analysis = sp.audio_analysis(track_id)
-        print(analysis)
+        bars = analysis.get("bars")
+        current_bar = 0
+        for i, bar in enumerate(bars):
+            current_song_time = int(round(time.time()*1000) - start_ms) + progress_ms
+            if current_song_time < int(round(bar.get("start")*1000)) + start_ms:
+                current_bar = i
+                time.sleep(int(bar.get("start")) - current_song_time)
+                break
+        while current_bar < len(bars) - 1:
+            duration = bars[current_bar].get('duration')
+            time.sleep(duration)
+            light_strand.flash_fade(color)
+
+
