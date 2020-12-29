@@ -70,7 +70,7 @@ class PulseToBeat(Resource):
             current_song_time = int(round(time.time()*1000) - start_ms) + progress_ms
             if current_song_time < int(round(bar.get("start")*1000)) + start_ms:
                 current_bar = i
-                time.sleep(int(bar.get("start")) - current_song_time)
+                time.sleep(int(bar.get("start")) + start_ms - current_song_time)
                 break
         while current_bar < len(bars) - 1:
             duration = bars[current_bar].get('duration')
