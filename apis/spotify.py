@@ -57,9 +57,8 @@ class CurrentSong(Resource):
 class PulseToBeat(Resource):
     def post(self):
         data = sp.currently_playing()
-        print(type(data))
         start_time = time.time()
-        progress_ms = data.get("progress_ms")
+        progress_ms = data.get("progress_ms")/1000
         data = json.loads(request.data)
         track_id = data.get('id')
         color = data.get('color')
@@ -67,7 +66,9 @@ class PulseToBeat(Resource):
         bars = analysis.get("bars")
         current_bar = 0
         for i, bar in enumerate(bars):
-            current_song_time = time.time() - start_time + round(progress_ms/1000)
+            current_song_time = time.time() - start_time + progress_ms
+            print(f"Index {i} current song time {current_song_time}")
+            print(f"{bar.get('start') + start_time}")
             if current_song_time < bar.get("start") + start_time:
                 current_bar = i
                 time.sleep(bar.get("start") + start_time - current_song_time)
