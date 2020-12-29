@@ -71,12 +71,15 @@ class PulseToBeat(Resource):
                 current_bar = i
                 time.sleep(bar.get("start") - current_song_time)
                 break
+        one = time.time() - start_time + progress_ms
+        two = bars[current_bar].get('start')
         while current_bar < len(bars) - 1:
             light_strand.flash_fade(color)
             duration = bars[current_bar].get('duration')
             one = time.time() - start_time + progress_ms
             two = bars[current_bar].get('start')
             current_bar += 1
-            time.sleep(duration-.16)
+            time.sleep(duration)
+        print(two-one)
 
 
