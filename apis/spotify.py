@@ -67,8 +67,6 @@ class PulseToBeat(Resource):
         current_bar = 0
         for i, bar in enumerate(bars):
             current_song_time = time.time() - start_time + progress_ms
-            print(f"Index {i} current song time {current_song_time}")
-            print(f"Bar time {bar.get('start')}")
             if current_song_time < bar.get("start"):
                 current_bar = i
                 time.sleep(bar.get("start") - current_song_time)
@@ -78,7 +76,6 @@ class PulseToBeat(Resource):
             duration = bars[current_bar].get('duration')
             one = time.time() - start_time + progress_ms
             two = bars[current_bar].get('start')
-            print("Difference: ", two-one)
             current_bar += 1
             time.sleep(duration-.21)
 
