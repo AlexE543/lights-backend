@@ -73,14 +73,13 @@ class PulseToBeat(Resource):
                 break
         one = time.time() - start_time + progress_ms
         two = bars[current_bar].get('start')
-        duration = sum([x.get('duration') for x in bars[current_bar:current_bar + 10]])/10
         while current_bar < len(bars) - 1:
-            light_strand.flash_fade((0, 133, 133))
-            # duration = bars[current_bar].get('duration')
             one = time.time() - start_time + progress_ms
             two = bars[current_bar].get('start')
+            light_strand.flash_fade((0, 133, 133))
+            duration = bars[current_bar].get('duration')
             current_bar += 1
-            time.sleep(max(0, duration-.2043))
+            time.sleep(max(0, duration-(one-two)))
         print(len(bars))
         print(two-one)
 
