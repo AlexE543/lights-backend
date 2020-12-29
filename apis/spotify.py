@@ -80,6 +80,6 @@ class PulseToBeat(Resource):
             print("Difference: ", two-one)
             light_strand.flash_fade(color)
             current_bar += 1
-            time.sleep(duration)
+            time.sleep(duration-.21)
 
 
