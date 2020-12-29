@@ -80,6 +80,7 @@ class PulseToBeat(Resource):
             two = bars[current_bar].get('start')
             current_bar += 1
             time.sleep(duration)
+        print(len(bars))
         print(two-one)
 
 
