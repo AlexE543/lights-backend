@@ -68,10 +68,10 @@ class PulseToBeat(Resource):
         for i, bar in enumerate(bars):
             current_song_time = time.time() - start_time + progress_ms
             print(f"Index {i} current song time {current_song_time}")
-            print(f"{bar.get('start') + start_time}")
-            if current_song_time < bar.get("start") + start_time:
+            print(f"Bar time {bar.get('start')}")
+            if current_song_time < bar.get("start"):
                 current_bar = i
-                time.sleep(bar.get("start") + start_time - current_song_time)
+                time.sleep(bar.get("start") - current_song_time)
                 break
         while current_bar < len(bars) - 1:
             duration = bars[current_bar].get('duration')
