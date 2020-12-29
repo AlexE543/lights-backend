@@ -61,7 +61,7 @@ class PulseToBeat(Resource):
         progress_ms = data.get("progress_ms")/1000
         data = json.loads(request.data)
         track_id = data.get('id')
-        color = data.get('color')
+        color = tuple(data.get('color'))
         analysis = sp.audio_analysis(track_id)
         bars = analysis.get("bars")
         current_bar = 0
