@@ -53,6 +53,37 @@ class CurrentSong(Resource):
         return data
 
 
+# @spotify_ns.route('/pulse_to_beat')
+# class PulseToBeat(Resource):
+#     def post(self):
+#         data = sp.currently_playing()
+#         start_time = time.time()
+#         progress_ms = data.get("progress_ms")/1000
+#         data = json.loads(request.data)
+#         track_id = data.get('id')
+#         color = tuple(data.get('color'))
+#         analysis = sp.audio_analysis(track_id)
+#         bars = analysis.get("beats")
+#         current_bar = 0
+#         for i, bar in enumerate(bars):
+#             current_song_time = time.time() - start_time + progress_ms
+#             if current_song_time < bar.get("start"):
+#                 current_bar = i
+#                 time.sleep(bar.get("start") - current_song_time)
+#                 break
+#         one = time.time() - start_time + progress_ms
+#         two = bars[current_bar].get('start')
+#         while current_bar < len(bars) - 1:
+#             one = time.time() - start_time + progress_ms
+#             two = bars[current_bar].get('start')
+#             light_strand.flash_fade((0, 133, 133))
+#             duration = bars[current_bar].get('duration')
+#             current_bar += 1
+#             time.sleep(max(0, duration-(one-two)))
+#         print(len(bars))
+#         print(two-one)
+
+
 @spotify_ns.route('/pulse_to_beat')
 class PulseToBeat(Resource):
     def post(self):
@@ -63,24 +94,14 @@ class PulseToBeat(Resource):
         track_id = data.get('id')
         color = tuple(data.get('color'))
         analysis = sp.audio_analysis(track_id)
-        bars = analysis.get("beats")
-        current_bar = 0
-        for i, bar in enumerate(bars):
-            current_song_time = time.time() - start_time + progress_ms
-            if current_song_time < bar.get("start"):
-                current_bar = i
-                time.sleep(bar.get("start") - current_song_time)
-                break
-        one = time.time() - start_time + progress_ms
-        two = bars[current_bar].get('start')
-        while current_bar < len(bars) - 1:
-            one = time.time() - start_time + progress_ms
-            two = bars[current_bar].get('start')
-            light_strand.flash_fade((0, 133, 133))
-            duration = bars[current_bar].get('duration')
-            current_bar += 1
-            time.sleep(max(0, duration-(one-two)))
-        print(len(bars))
-        print(two-one)
-
-
+        track = analysis.get("track")
+        duration = track.get("duration")*1000
+        tempo_delta = (60/track.get("tempo")*1000)
+        curr_song_time = time.time() - start_time + progress_ms
+        last_beat = time.time()
+        while curr_song_time < duration:
+            if time.time() - last_beat > tempo_delta:
+                light_strand.flash_fade(color)
+                last_beat = time.time()
+            curr_song_time = time.time() - start_time + progress_ms
+        
