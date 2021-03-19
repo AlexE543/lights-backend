@@ -17,6 +17,7 @@ class LightStrand:
         self.pixels = neopixel.NeoPixel(GPIO_PIN, num_pixels, brightness=brightness, auto_write=auto_write)
         self.playing = False
         self.current_animation = None
+        self.pulse = False
 
     def get_pixel(self, pixel_index):
         return self.pixels[pixel_index]
@@ -89,6 +90,16 @@ class LightStrand:
             time.sleep(1)
 
     def flash_fade(self, color):
+        self.playing = False
+        for i in range(6):
+            self.fill(color)
+            color = tuple(int(x*.75) for x in color)
+            time.sleep(.02)
+        self.fill((0, 0, 0))
+
+    def pulse(self, color):
+        if not self.pulse:
+            return
         self.playing = False
         for i in range(6):
             self.fill(color)
