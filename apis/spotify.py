@@ -90,7 +90,7 @@ class PulseToBeat(Resource):
         start_time = time.time()
         progress_ms = data.get("progress_ms")/1000
         data = json.loads(request.data)
-        light_strand.pulse = data.get("pulse")
+        light_strand.pulse = bool(data.get("pulse"))
         track_id = data.get('id')
         color = tuple(data.get('color'))
         analysis = sp.audio_analysis(track_id)

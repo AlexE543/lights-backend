@@ -98,8 +98,6 @@ class LightStrand:
         self.fill((0, 0, 0))
 
     def pulse(self, color):
-        if not self.pulse:
-            return
         self.playing = False
         for i in range(6):
             self.fill(color)
