@@ -102,7 +102,7 @@ class PulseToBeat(Resource):
         while light_strand.pulse and curr_song_time < duration:
             # print(f"Left: {time.time() - last_beat}  Right: {tempo_delta}")
             if time.time() - last_beat > tempo_delta:
-                light_strand.pulse(color)
+                light_strand.flash_pulse(color)
                 last_beat = time.time()
             curr_song_time = time.time() - start_time + progress_ms
 

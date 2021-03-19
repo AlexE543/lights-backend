@@ -97,7 +97,7 @@ class LightStrand:
             time.sleep(.02)
         self.fill((0, 0, 0))
 
-    def pulse(self, color):
+    def flash_pulse(self, color):
         self.playing = False
         for i in range(6):
             self.fill(color)
