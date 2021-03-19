@@ -14,7 +14,7 @@ scope = "user-read-currently-playing user-top-read user-read-recently-played use
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, client_id=os.getenv('SPOTIPY_CLIENT_ID'),
                                                 client_secret=os.getenv('SPOTIPY_CLIENT_SECRET')))
-
+pulse = False
 
 @spotify_ns.route('/next_song')
 class NextSong(Resource):
@@ -37,6 +37,7 @@ class PreviousSong(Resource):
 @spotify_ns.route('/pause_play')
 class PausePlay(Resource):
     def get(self):
+        pulse = False
         start = time.time()
         if sp.currently_playing().get('is_playing'):
             sp.pause_playback()
@@ -87,6 +88,7 @@ class CurrentSong(Resource):
 @spotify_ns.route('/pulse_to_beat')
 class PulseToBeat(Resource):
     def post(self):
+        pulse = True
         data = sp.currently_playing()
         start_time = time.time()
         progress_ms = data.get("progress_ms")/1000
@@ -99,7 +101,7 @@ class PulseToBeat(Resource):
         tempo_delta = (60/track.get("tempo")*2)-.2
         curr_song_time = time.time() - start_time + progress_ms
         last_beat = time.time()
-        while curr_song_time < duration:
+        while pulse and curr_song_time < duration:
             # print(f"Left: {time.time() - last_beat}  Right: {tempo_delta}")
             if time.time() - last_beat > tempo_delta:
                 light_strand.flash_fade(color)
