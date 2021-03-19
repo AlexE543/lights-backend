@@ -100,7 +100,7 @@ class PulseToBeat(Resource):
         analysis = sp.audio_analysis(track_id)
         track = analysis.get("track")
         duration = track.get("duration")
-        tempo_delta = (60/track.get("tempo")*2)-.2
+        tempo_delta = (60/track.get("tempo")*2)*.83
         curr_song_time = time.time() - start_time + progress_ms
         last_beat = time.time()
         while pulse and curr_song_time < duration:
