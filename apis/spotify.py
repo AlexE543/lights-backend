@@ -99,9 +99,11 @@ class PulseToBeat(Resource):
         tempo_delta = (60/track.get("tempo")*1000)
         curr_song_time = time.time() - start_time + progress_ms
         last_beat = time.time()
+        print(f"Curr_song_time: {curr_song_time}, Last_beat: {last_beat}")
         while curr_song_time < duration:
+            print(f"Curr_song_time: {curr_song_time}, Last_beat: {last_beat}, time since last beat: {time.time() - last_beat}, tempo: {tempo_delta}")
             if time.time() - last_beat > tempo_delta:
                 light_strand.flash_fade(color)
                 last_beat = time.time()
             curr_song_time = time.time() - start_time + progress_ms
-        
+
